@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legislators App</title>
+    <style>
+        /* Style for legislator containers */
+        .legislator-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            height: 400px; 
+            display: inline-block;
+            box-shadow: 2px 2px 5px #888888;
+            cursor: pointer;
+            position: relative; 
+        }
+
+        /* Style for legislator information at the bottom */
+        .legislator-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center; 
+            font-size: 18px; 
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Who are your Legislators?</h1>
+    <p>Enter two letter State Codes in search: (i.e. co, wy, nj)</p>
+
+    <form action="/" method="GET">
+        <label for="state_code">Search by State Code:</label>
+        <input type="text" id="state_code" name="state_code" placeholder="Enter a state code">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display search results in containers -->
+    {% if search_results %}
+    <h2>Search Results:</h2>
+        <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-start; flex-wrap: wrap;">
+            {% for result in search_results %}
+                <div class="legislator-container">
+                    <a href="{{ url_for('legislator_details', bioguide_id=result[14]) }}">
+                        <div class="legislator-info">
+                            <p><strong>{{ result[1] }}</strong> - {{ result[2] }} - {{ result[3] }}</p>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; height: 100%; transform: translateY(0%);">
+                            <img src="{{ result[-1] }}" alt="{{ result[2] }}" style="max-width: 100%; max-height: 100%;">
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
