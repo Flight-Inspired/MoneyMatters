@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legislator Details</title>
+    <style>
+        /* Reset default margin and padding for body */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation bar style */
+        .navbar {
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Home link style */
+        .home-link {
+            font-weight: bold;
+            text-decoration: none;
+            color: #333;
+        }
+
+        /* Container for the entire page */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Title style */
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* Container for legislator info and top donors */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container for legislator information */
+        .legislator-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            height: 350px;
+            box-shadow: 2px 2px 5px #888888;
+            position: relative;
+        }
+
+        /* Styling for legislator information */
+        .legislator-info {
+            font-size: 18px;
+        }
+
+        /* Styling for top donors section */
+        .top-donors {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 400px;
+            box-shadow: 2px 2px 5px #888888;
+            position: relative;
+            float: right;
+            margin-left: 20px;
+        }
+
+        /* Styling for top donors list */
+        .top-donors ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Styling for top donors list items */
+        .top-donors li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Styling for donor number */
+        .donor-number {
+            width: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* Styling for donor name */
+        .donor-name {
+            flex: 1;
+            text-align: left;
+            margin-left: 12px;
+        }
+
+        /* Styling for donor amount */
+        .donor-amount {
+            font-weight: bold;
+            text-align: left;
+            margin-left: 10px;
+            width: 60px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a class="home-link" href="/">Home</a>
+    </div>
+    <div class="page-container">
+        <div class="title">Legislator Details</div>
+        <div class="container">
+            <!-- Display legislator info and top donors -->
+            <div class="legislator-container">
+                <div class="legislator-info">
+                    <p><strong>{{ legislator_details[1] }}</strong> - {{ legislator_details[4] }} - {{ legislator_details[3] }}</p>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%; transform: translateY(-10%);">
+                    <img src="{{ legislator_details[-1] }}" alt="***" style="max-width: 100%; max-height: 100%;">
+                </div>
+            </div>
+            <div class="top-donors">
+                <h2>Top 10 Donors:</h2>
+                <ul>
+                    {% for donor in top_donors %}
+                        <li>
+                            <span class="donor-number">{{ loop.index }}.</span>
+                            <span class="donor-name">{{ donor[0] }}</span>
+                            <span class="donor-amount">{{ donor[1] }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
