@@ -9,12 +9,12 @@ import os, sqlite3
 app = Flask(__name__)
 
 # Check if the database file exists before setting up (This will not populate the full database, only allows for search)
-if not os.path.exists('legislators.db'):
+'''if not os.path.exists('legislators.db'):
     setup_database()
     insert_legislators_for_all_states()
     all_members_data = get_all_members()
     insert_members_into_database(all_members_data)
-
+'''
 
 # Landing page
 @app.route('/', methods=['GET'])
