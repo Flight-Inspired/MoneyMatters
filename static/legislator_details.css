@@ -144,6 +144,7 @@ body {
     /* Adjusted styling for top donors */
     .top-donors {
         width: 100%; /* Make width 100% for mobile */
+        margin: 10px 0; /* Add margin for spacing */
     }
 
     /* Adjusted styling for donation notice */
