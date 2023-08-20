@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MoneyMatters</title>
+    <link rel="stylesheet" type="text/css" href="/static/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>MoneyMatters</h1>
+    <p>Enter two letter State Codes in search: (i.e. co, wy, nj, ma)</p>
+
+    <form action="/" method="GET">
+        <label for="state_code">Search by State Code:</label>
+        <input type="text" id="state_code" name="state_code" placeholder="Enter a state code">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display search results in containers -->
+    {% if search_results %}
+    <h2>Search Results:</h2>
+    <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-start; flex-wrap: wrap;">
+        {% for result in search_results %}
+            <div class="legislator-container">
+                <a href="{{ url_for('legislator_details', bioguide_id=result[14]) }}">
+                    <div class="legislator-chamber">
+                        <p><strong>{% if result[-2] == 'H' %}House{% elif result[-2] == 'S' %}Senate{% else %}House{% endif %}</strong></p>
+                    </div>
+                    <div class="legislator-info">
+                        <p><strong>{{ result[1] }}</strong> - {{ result[3] }} - {{ result[4] }}</p>
+                    </div>
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100%; transform: translateY(-15%);">
+                        <img src="{{ result[-1] }}" alt="{{ result[2] }}" style="max-width: 100%; max-height: 215px;">
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</body>
+</html>

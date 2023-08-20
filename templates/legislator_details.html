@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Legislator Details</title>
+    <link rel="stylesheet" type="text/css" href="/static/legislator_details.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="navbar">
+        <a class="home-link" href="/">Home</a>
+    </div>
+    <div class="page-container">
+        <div class="title">Legislator Details</div>
+        <div class="container">
+            <!-- Display legislator info and top donors -->
+            <div class="legislator-container">
+                <div class="legislator-info">
+                    <p><strong>{{ legislator_details[1] }}</strong> - {{ legislator_details[3] }} - {{ legislator_details[4] }}</p>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%; transform: translateY(-10%);">
+                    <img src="{{ legislator_details[-1] }}" alt="***" style="max-width: 100%; max-height: 215px;">
+                </div>
+            </div>
+            <div class="top-donors">
+                <h2>Top 10 Donors - 2022 Cycle:</h2>
+                <ul>
+                    {% for donor in top_donors %}
+                        <li>
+                            <span class="donor-number">{{ loop.index }}.</span>
+                            <span class="donor-name">{{ donor[0] }}</span>
+                            <span class="donor-amount">{{ donor[1] }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- Donation notice -->
+        <p class="donation-notice">*The organizations themselves did not donate, rather the money came from the organization's PAC, its individual members or employees or owners, and those individuals' immediate families.</p>
+        <!-- Additional notice -->
+        <p class="additional-notice">*These are 6-year numbers for senators/Senate candidates; 2-year numbers for representatives/House candidates.</p>
+    </div>
+</body>
+</html>
