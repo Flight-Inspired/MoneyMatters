@@ -125,14 +125,18 @@ body {
     color: #777;
 }
 
+
 /* Styles for small screens */
 @media screen and (max-width: 768px) {
+    /* Adjusted styling for container */
+    .container {
+        flex-direction: column; /* Stack containers in a column */
+        align-items: center; /* Center horizontally */
+    }
+
     /* Adjusted styling for legislator container */
     .legislator-container {
-        /* ... (your existing styles) */
-        display: flex;
-        flex-direction: column; /* Align vertically */
-        align-items: center; /* Center horizontally */
+        width: 100%; /* Set width to 100% for stacking on small screens */
     }
 
     /* Adjusted styling for legislator info */
@@ -145,15 +149,6 @@ body {
     .top-donors {
         width: 100%; /* Make width 100% for mobile */
         margin: 10px 0; /* Add margin for spacing */
-    }
-
-    /* Adjusted styling for donation notice */
-    .donation-notice {
-        font-size: 12px; /* Decrease font size for mobile */
-    }
-
-    /* Adjusted styling for additional notice */
-    .additional-notice {
-        font-size: 12px; /* Decrease font size for mobile */
+        float: none; /* Clear the float for mobile */
     }
 }

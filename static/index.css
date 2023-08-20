@@ -87,7 +87,7 @@ body {
 /* Style for legislator images */
 .legislator-image-container img {
     max-width: 100%;
-    max-height: 225px; /* Adjust the maximum height as needed */
+    max-height: 250px; 
 }
 
 /* Display search results in containers */
