@@ -20,23 +20,23 @@ The Moneymatters App allows users to search for legislators using a two-letter s
     This file sets up the SQLite relational database for the application. It defines the necessary tables; (`current_legislators`, `us_representatives`, `candidate_summary`, and `candidate_contributions`) to create the legislators.db SQL database, from which relationships are established using foreign key references to (`bioguide_id` and `cid`).
 
 ### `opensecrets_api.py`:
-    This file calls the OpenSecrets API getLegislators method and returns data for every Senate and House member. The data is then inserted into the current_legislators table which is used by the search function to return legislators for an individual state.
+    This file calls the OpenSecrets API getLegislators method and returns data for every Senate and House member. The data is then inserted into the `current_legislators` table which is used by the search function to return legislators for an individual state.
 
 ### `opensecrets_candcontrib.py`:
-    This file extracts detailed contribution data in batches from the OpenSecrets API and inserts it into the candidate_contributions table. It extracts detailed financial information in batches from the OpenSecrets API, transforming the raw XML data into a dictionary format. It then loads the transformed data into the candidate_contributions table within the relational database. This process ensures that donor data is efficiently retrieved, organized, and stored, which allows for intuitive retrieval and analysis.
+    This file extracts detailed contribution data in batches from the OpenSecrets API and inserts it into the candidate_contributions table. It extracts detailed financial information in batches from the OpenSecrets API, transforming the raw XML data into a dictionary format. It then loads the transformed data into the `candidate_contributions` table within the SQLite database.
 
 ### `opensecrets_candsummary.py`:
-    This file extracts and inserts summary financial data for all current legislators into the candidate_summary table. It extracts information in batches from the OpenSecrets API and transforms the raw XML response data into a dictionary format that corresponds to the candidate_summary table. The transformed data is then loaded into the appropriate table within the relational database. This approach enables the application to effectively store and manage concise yet pertinent information about candidates, ensuring streamlined access and analysis as needed.
+    This file extracts and inserts summary financial data for all current legislators into the `candidate_summary` table. It extracts information in batches from the OpenSecrets API and transforms the raw XML response data into a dictionary format that corresponds to the `candidate_summary` table. The transformed data is then loaded into the appropriate table within the relational database.
 
 ### `search.py`:
     This file holds the central search functions for the application. It executes SQL queries within `legislators.db` to quickly retrieve legislator data and contributions.
 
 ## Design Choices
 - The application uses Flask as the backend framework for simplicity and ease of use to spin up a server.
-- Data from Congress.gov and OpenSecrets.com APIs is extracted and stored in a SQLite database for quick and efficient retrieval.
+- Data from Congress.gov and OpenSecrets.com APIs are extracted, transformed, and loaded into a SQLite database for quick and efficient retrieval.
 - Batch processing is implemented for fetching contribution data in `opensecrets_candcontrib.py` and summary data in `opensecrets_candsummary.py` to manage API rate limits.
 - HTML and CSS templates ensure uniform functionality and search display.
-- Jinja2 is used to dynamically display containers for search results
+- Jinja2 is used to dynamically display containers for search results.
 
 ## Usage
 1. Run `app.py` to start the Flask development server.
