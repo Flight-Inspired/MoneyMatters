@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 api_key = os.getenv("OPENSECRETS_API_KEY")
+API_BASE_URL = "http://www.opensecrets.org/api/"
 
 # New hosts will need to create last_batch_cid_index.txt if they intend to batch data
 CYCLES_TO_FETCH = ["2022"]

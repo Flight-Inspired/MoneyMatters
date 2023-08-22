@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 api_key = os.getenv("OPENSECRETS_API_KEY")
+API_BASE_URL = "http://www.opensecrets.org/api/"
+
 
 # Fetch legislators data for a given state
 def get_legislators(state_code):
