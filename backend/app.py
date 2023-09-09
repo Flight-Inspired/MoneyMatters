@@ -1,13 +1,15 @@
 #app.py
+import json
 from congress_api import get_all_members, insert_members_into_database
 from database_setup import setup_database
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 from opensecrets_api import insert_legislators_for_all_states
 from search import search_legislators_by_state, get_top_donors
 import os, sqlite3
 
 app = Flask(__name__)
-
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 # Check if the database file exists before setting up (This will not populate the full database, only allows for search)
 '''if not os.path.exists('legislators.db'):
     setup_database()
@@ -17,7 +19,7 @@ app = Flask(__name__)
 '''
 
 # Landing page
-@app.route('/', methods=['GET'])
+@app.route('/api/search', methods=['GET'])
 def home():
     search_results = None
     
@@ -27,11 +29,11 @@ def home():
         print(search_results)
         print(type(search_results))
 
-    return render_template('index.html', search_results=search_results)
+    return jsonify(search_results)
 
 
 # Legislator details
-@app.route('/legislator/<bioguide_id>', methods=['GET'])
+@app.route('/api/legislator/<bioguide_id>', methods=['GET'])
 def legislator_details(bioguide_id):
     # Fetch legislator details from search_results
     search_results = search_legislators_by_state('')
@@ -43,7 +45,13 @@ def legislator_details(bioguide_id):
     
     # Fetch top 10 donors for the legislator from the database
     top_donors = get_top_donors(bioguide_id)
-    return render_template('legislator_details.html', legislator_details=legislator_details, top_donors=top_donors)
+
+    result_dict = {
+        "legistlatorDetails": legislator_details,
+        "topDonors": top_donors
+    }
+
+    return json.dumps(result_dict)
 
 if __name__ == '__main__':
     app.run(debug=True)
