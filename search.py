@@ -20,8 +20,44 @@ def search_legislators_by_state(state_code):
     return search_results
 
 
+def search_by_legislator(name):
+    conn = sqlite3.connect("legislators.db")
+    c = conn.cursor()
+
+    name = f'%{name}%'
+    c.execute('''
+        SELECT current_legislators.*, candidate_summary.chamber, us_representatives.depiction
+        FROM current_legislators
+        LEFT JOIN us_representatives ON current_legislators.bioguide_id = us_representatives.bioguide_id
+        LEFT JOIN candidate_summary ON current_legislators.cid = candidate_summary.cid
+        WHERE current_legislators.lastname LIKE ? OR current_legislators.firstlast LIKE ?
+    ''', (name, name))
+    search_results = c.fetchall()
+
+    conn.close()
+
+    return search_results
+
+    
+def name_to_bioguide_id(name):
+    conn = sqlite3.connect("legislators.db")
+    c = conn.cursor()
+
+    name = f'%{name}%'
+    c.execute('''
+        SELECT current_legislators.bioguide_id
+        FROM current_legislators
+        WHERE current_legislators.lastname LIKE ? OR current_legislators.firstlast LIKE ?
+    ''', (name, name))
+    search_results = c.fetchone()
+
+    conn.close()
+
+    return search_results
+
 def get_top_donors(bioguide_id):
     try:
+        bioguide_id = bioguide_id[0]
         conn = sqlite3.connect('legislators.db')
         c = conn.cursor()
 
@@ -41,7 +77,7 @@ def get_top_donors(bioguide_id):
                 LIMIT 10
             ''', (cid,))
             top_donors = c.fetchall()
-            print(top_donors)
+        
 
             # Sort the top donors in descendeing order
             sorted_top_donors = sorted(top_donors, key=lambda x: int(x[1]), reverse=True)
