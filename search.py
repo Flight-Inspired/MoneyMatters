@@ -6,14 +6,34 @@ def search_legislators_by_state(state_code):
     c = conn.cursor()
 
     state_code = f'%{state_code}%'
+    #get the name and party of the legislator and the amount donated by the company
     c.execute('''
-        SELECT current_legislators.*, candidate_summary.chamber, us_representatives.depiction 
+        SELECT current_legislators.lastname, current_legislators.party, candidate_contributions.org_name, candidate_contributions.total
         FROM current_legislators
-        LEFT JOIN us_representatives ON current_legislators.bioguide_id = us_representatives.bioguide_id
-        LEFT JOIN candidate_summary ON current_legislators.cid = candidate_summary.cid
-        WHERE current_legislators.office LIKE ?
+        LEFT JOIN candidate_contributions ON current_legislators.cid = candidate_contributions.cid
+        WHERE candidate_contributions.org_name LIKE ?       
     ''', (state_code,))
     search_results = c.fetchall()
+
+    conn.close()
+
+    return search_results
+
+
+def search_by_company(name):
+    conn = sqlite3.connect("legislators.db")
+    c = conn.cursor()
+
+    name = f'%{name}%'
+    c.execute('''
+        SELECT candidate_contributions.org_name, candidate_contributions.total, current_legislators.*
+        FROM candidate_contributions
+        LEFT JOIN current_legislators ON candidate_contributions.cid = current_legislators.cid
+        WHERE candidate_contributions.org_name LIKE ? OR candidate_contributions.org_name LIKE ?
+    ''', (name, name))
+
+    search_results = c.fetchall()
+
 
     conn.close()
 
@@ -37,6 +57,19 @@ def search_by_legislator(name):
     conn.close()
 
     return search_results
+
+def parse_company_contributions(search_results):
+    parsed_results = []
+    for result in search_results:
+        parsed_results.append({
+            'firstlast': result[3],
+            'total': result[1],
+            'party': result[5],
+            'bioguide_id': result[2],
+        })
+
+    print(parsed_results)
+    return parsed_results
 
     
 def name_to_bioguide_id(name):

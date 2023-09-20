@@ -3,7 +3,7 @@ from congress_api import get_all_members, insert_members_into_database
 from database_setup import setup_database
 from flask import Flask, render_template, request
 from opensecrets_api import insert_legislators_for_all_states
-from search import search_legislators_by_state, get_top_donors, search_by_legislator, name_to_bioguide_id
+from search import search_legislators_by_state, get_top_donors, search_by_legislator, name_to_bioguide_id, search_by_company, parse_company_contributions
 import os, sqlite3
 
 app = Flask(__name__)
@@ -27,17 +27,18 @@ def home():
         print(search_results)
         print(type(search_results))
         return render_template('index.html', search_results=search_results)
-    else:
-        #In this case state_code is a name
-        #Line below could be buggy
-        if isinstance(state_code, str):
-            search_results=search_by_legislator(state_code)
-            topdon = get_top_donors(name_to_bioguide_id(state_code))
-            print(search_results)
-            #search_results[-1] = get_lesislator_picture(name_to_bioguide_id(state_code))
-
-            return render_template('single_legislator.html', legislator_details=search_results,  top_donors=topdon)
-    return render_template('index.html', search_results=search_results)
+    state_code = request.args.get('name')
+    if state_code:
+        search_results=search_by_legislator(state_code)
+        topdon = get_top_donors(name_to_bioguide_id(state_code))
+        return render_template('single_legislator.html', legislator_details=search_results,  top_donors=topdon)
+    state_code = request.args.get('company')
+    if state_code:
+        search_results = search_by_company(state_code)
+        print(search_results)
+        top_contib = parse_company_contributions(search_results)
+        return render_template('company_activity.html', legislator_details=search_results, top_donors=top_contib)
+    return render_template('index.html', search_results=None)
     
 
     
@@ -57,14 +58,7 @@ def legislator_details(bioguide_id):
     top_donors = get_top_donors(bioguide_id)
     return render_template('legislator_details.html', legislator_details=legislator_details, top_donors=top_donors)
 
-def get_lesislator_picture(bio_id):
-    conn = sqlite3.connect('legislators.db')
-    c = conn.cursor()
-    bio_id = bio_id[0]
-    c.execute("SELECT depiction FROM us_representatives WHERE bioguide_id = ?", (bio_id,))
-    pic_url = c.fetchone()[0]
-    conn.close()
-    return pic_url
+
 
 if __name__ == '__main__':
     app.run(debug=True)
