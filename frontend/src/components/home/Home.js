@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import MemberCard from '../memberCard/MemberCard';
 import './Home.css';
+import CardGrid from '../cardGrid/CardGrid';
 
 function Home(props) {
     const [members, setMembers] = useState([]);
@@ -48,13 +48,7 @@ function Home(props) {
             {members.length === 0 ? (
                 <p>Loading...</p>
                 ) : (
-                <div className="container text-center">
-                    <div className="row">
-                            {members.map((member, index) => (
-                            <MemberCard key={index} member={member} />
-                            ))}
-                            </div>
-                </div>            
+                <CardGrid members={members}/>           
             )}
                 
             </div>

@@ -5,8 +5,6 @@ import NavBar from './components/navbar/NavBar';
 import LegislatorDetails from './components/legislatorDetails/LegislatorDetails';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 
 function App() {
   const server_url = 'http://127.0.0.1:5000/api';
