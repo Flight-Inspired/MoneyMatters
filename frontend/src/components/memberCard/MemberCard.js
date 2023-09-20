@@ -7,9 +7,9 @@ function MemberCard(props) {
     const memberUrl = `/legislator/${member[14]}`;
     
     return (
-        <div className="card col-2" styles="width: 10rem;">
+        <div className="card">
             <Link to={memberUrl}>
-                <img src={member[22]} className="card-img-top" styles="height: 75%; margin: 1rem;" alt={"A picture of " + member[1]} />
+                <img src={member[22]} className="img-card-top cover-img rounded-top"  alt={"A picture of " + member[1]} />
                 <div className="card-body">
                     <h5 className="card-title"><strong>{member[1]}</strong></h5>
                     <p className="card-text">{member[21] === 'H' ? 'House' : 'Senate'}</p>

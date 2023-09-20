@@ -31,25 +31,39 @@ function Home(props) {
     };
     
     return (
-        <div>
-            <h1>MoneyMatters</h1>
-            <p>Enter two letter State Codes in search: (i.e. co, wy, nj, ma)</p>
+        <div className='container-fluid grid pt-4'>
+            <div className='row'>
+                <h1 className='col-12 text-center'>MoneyMatters</h1>
+            </div>
+            <div className='row'>
+                <div className='col-3'></div>
+                <p className='col-6'>Enter two letter State Codes in search: (i.e. co, wy, nj, ma)</p>
+                <div className='col-3'></div>
+            </div>
+            <div className='row'>
+                <div className='col-3'></div>
+                <form class="d-flex col-6" role="search">
+                    <input class="form-control me-2" type="search" id="state_code" name="state_code" placeholder="Enter a state code" aria-label="Search" onChange={(e) => setStateCode(e.target.value)} />
+                    <button class="btn btn-outline-success" type="submit" onClick={handleSearchSubmit}>Search</button>
+                </form>
+                <div className='col-3'></div>
+            </div>
+            
 
             
-            <label htmlFor="state_code">Search by State Code:</label>
-            <input type="text" id="state_code" name="state_code" placeholder="Enter a state code" onChange={(e) => setStateCode(e.target.value)} />
-            <button type="submit" onClick={handleSearchSubmit}>Search</button>
+            <div className='row'>
+                <div className='col-1'></div>
+                <h2 className='col-11'>Search Results:</h2>
             
-
-            {/* <!-- Display search results in containers --> */}
-            <h2>Search Results:</h2>
-            <div styles="display: flex; flex-direction: row; justify-content: space-around; align-items: flex-start; flex-wrap: wrap;">
-            
+            </div>
+            <div className='row'>
+                <div className='col-12 text-center'>
             {members.length === 0 ? (
                 <p>Loading...</p>
                 ) : (
                 <CardGrid members={members}/>           
-            )}
+                    )}
+                    </div>
                 
             </div>
             

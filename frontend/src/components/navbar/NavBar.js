@@ -1,22 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function NavBar(props) {
+    const location = useLocation();
+
 
     return (
-        <nav class="navbar navbar-light bg-white navbar-expand-lg border-bottom">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">MoneyMatters</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        <nav className="navbar navbar-light bg-white navbar-expand-lg border-bottom">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">MoneyMatters</a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="collapse navbar-collapse text-center" id="navbarNavAltMarkup">
                     <ul className="navbar-nav">
                         <li className='nav-item'>
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                            <Link className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} aria-current={location.pathname === '/map' ? 'page' : null} to="/">Home</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link className="nav-link" to="/map">Projects</Link>
+                            <Link className={`nav-link ${location.pathname === '/map' ? 'active' : ''}`}  aria-current={location.pathname === '/map' ? 'page' : null}to="/map">Map</Link>
                         </li>
                     </ul>
                 </div>

@@ -5,9 +5,9 @@ import MemberCard from '../memberCard/MemberCard';
 const CardGrid = ({ members }) => {
   return (
     <div className='grid'>
-      <div className='row'>
+      <div className='row m-4'>
         {members.map((member) => (
-          <div className='col' key={member.id} md={4} sm={6} xs={12}>
+          <div className='col-xl-2 col-lg-3 col-md-4 col-sm-6 pb-3' key={member.id}>
             <MemberCard member={member} />
           </div>
         ))}
