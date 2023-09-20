@@ -54,6 +54,7 @@ function Home(props) {
             )}
                 
             </div>
+            
         </div>
     );
 }
