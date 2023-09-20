@@ -48,9 +48,13 @@ function Home(props) {
             {members.length === 0 ? (
                 <p>Loading...</p>
                 ) : (
-                members.map((member, index) => (
-                    <MemberCard key={index} member={member} />
-                ))    
+                <div className="container text-center">
+                    <div className="row">
+                            {members.map((member, index) => (
+                            <MemberCard key={index} member={member} />
+                            ))}
+                            </div>
+                </div>            
             )}
                 
             </div>

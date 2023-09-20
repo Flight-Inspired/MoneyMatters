@@ -9,7 +9,7 @@ from search import search_legislators_by_state, get_top_donors
 import os, sqlite3
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 # Check if the database file exists before setting up (This will not populate the full database, only allows for search)
 '''if not os.path.exists('legislators.db'):
     setup_database()

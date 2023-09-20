@@ -1,14 +1,18 @@
 import './App.css';
 import Home from './components/home/Home';
 import Map from './components/map/Map';
+import NavBar from './components/navbar/NavBar';
 import LegislatorDetails from './components/legislatorDetails/LegislatorDetails';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 
 function App() {
   const server_url = 'http://127.0.0.1:5000/api';
   return (
-    <Router>
+      <Router>
+        <NavBar />
         <Routes>
             <Route path="/" exact element={ <Home serverUrl={server_url} /> } />
             <Route path="/legislator/:bioguideId" element={ <LegislatorDetails serverUrl={server_url} /> } />
