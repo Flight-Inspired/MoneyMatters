@@ -3,12 +3,12 @@ import os, requests, sqlite3
 from dotenv import load_dotenv
 
 load_dotenv()
-api_key = os.getenv("CONGRESS_API_KEY")
+API_KEY = os.getenv("CONGRESS_API_KEY")
 
 
 # Fetches information about all members of the U.S. Congress using the Congress.gov API with pagination.
 def get_all_members():
-    url = f"https://api.congress.gov/v3/member?api_key={API_KEY}"
+    url = "https://api.congress.gov/v3/member?api_key=" + API_KEY
     offset = 0
     limit = 250
     all_members = []
