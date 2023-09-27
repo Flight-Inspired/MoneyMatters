@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './carousel.css';
 
+/* Tableau Graphics */
+ //import Map from '../map/Map';
+
 export default function Carousel(props) {
     // Bootstrap carousel: boilerplate credit: https://getbootstrap.com/docs/4.0/components/carousel/
 
@@ -24,7 +27,7 @@ export default function Carousel(props) {
                     </div>
                     <div class="carousel-item">
                         <div class="d-block w-100 car_item">
-                            <img src="https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_1280.jpg" class="d-block w-100" alt="..."/>
+                            
                         </div>      
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Second slide label</h5>
