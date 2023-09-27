@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Home.css';
 import CardGrid from '../cardGrid/CardGrid';
+import Carousel from '../carousel/Carousel';
 
 function Home(props) {
     const [members, setMembers] = useState([]);
@@ -32,6 +33,9 @@ function Home(props) {
     
     return (
         <div className='container-fluid grid pt-4'>
+            <center>
+                <Carousel />
+            </center>
             <div className='row'>
                 <h1 className='col-12 text-center'>MoneyMatters</h1>
             </div>
@@ -53,8 +57,6 @@ function Home(props) {
             
             <div className='row'>
                 <div className='col-1'></div>
-                <h2 className='col-11'>Search Results:</h2>
-            
             </div>
             <div className='row'>
                 <div className='col-12 text-center'>

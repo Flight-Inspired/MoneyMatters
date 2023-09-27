@@ -1,0 +1,13 @@
+.container_t {
+    width: 50%;
+    border-radius: 20px;
+    margin: 0px 0px 100px 0px;
+}
+.arrow {
+    background-color: transparent !important;
+    border: none;
+}
+.car_item {
+    height: 200px;
+    background-color: red;
+}
