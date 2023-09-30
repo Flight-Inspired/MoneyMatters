@@ -5,7 +5,7 @@ from database_setup import setup_database
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from opensecrets_api import insert_legislators_for_all_states
-from search import search_legislators_by_state, get_top_donors
+from search import search_legislators_by_state, get_top_donors, name_search
 import os, sqlite3
 
 app = Flask(__name__)
@@ -32,9 +32,7 @@ def home():
 
     state_code = request.args.get('name')
     if state_code:
-        search_results = search_by_legislator(state_code)
-        topdon = get_top_donors(name_to_bioguide_id(state_code))
-        return render_template('single_legislator.html', legislator_details=search_results,  top_donors=topdon)
+        search_results = name_search(state_code)
 
     return jsonify(search_results)
 
