@@ -24,10 +24,17 @@ def home():
     search_results = None
     
     state_code = request.args.get('state_code')
+    print("here")
     if state_code:
         search_results = search_legislators_by_state(state_code)
         print(search_results)
         print(type(search_results))
+
+    state_code = request.args.get('name')
+    if state_code:
+        search_results = search_by_legislator(state_code)
+        topdon = get_top_donors(name_to_bioguide_id(state_code))
+        return render_template('single_legislator.html', legislator_details=search_results,  top_donors=topdon)
 
     return jsonify(search_results)
 

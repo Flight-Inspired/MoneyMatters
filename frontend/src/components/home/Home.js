@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './Home.css';
 import CardGrid from '../cardGrid/CardGrid';
+//add a dropdown select
+
+import Select from 'react-select'
+
 
 function Home(props) {
     const [members, setMembers] = useState([]);
@@ -13,12 +17,27 @@ function Home(props) {
         'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
         'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
     ];
+
+    //store the current option selected when onChange is triggered
+    const [selectedOption, setSelectedOption] = useState(null)
+    //store the options for the dropdown
+
+    const handleChange = (selectedOption) => {
+        setSelectedOption(selectedOption)
+    }
+
+
+    const options = [
+        { value: 'State', label: 'State' },
+        { value: 'Company', label: 'Company' },
+        { value: 'Individual', label: 'Individual' }
+      ]
+      
     const lowerCaseStateCodes = usStateCodes.map(code => code.toLowerCase());
 
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
+    const handleStateCodeSearch = () => {
         if (lowerCaseStateCodes.includes(stateCode.toLowerCase())) {
-            const searchUrl = `${props.serverUrl}/search?state_code=${stateCode}`;
+        const searchUrl = `${props.serverUrl}/search?state_code=${stateCode}`;
             // Perform the fetch request with the search URL
             fetch(searchUrl)
                 .then((response) => response.json())
@@ -26,9 +45,47 @@ function Home(props) {
                 .catch((error) => console.error(error));
         } else {
             // Handle invalid state code
-            console.error('Invalid state code');
+            const searchUrl = `${props.serverUrl}/search?name=${stateCode}`;
         }
-    };
+    }
+
+    const handleCompanySearch = () => {
+        const searchUrl = `${props.serverUrl}/search?company=${stateCode}`;
+            // Perform the fetch request with the search URL
+            fetch(searchUrl)
+                .then((response) => response.json())
+                .then((data) => setMembers(data))
+                .catch((error) => console.error(error));
+    }
+
+    const handleIndividualSearch = () => {
+        const searchUrl = `${props.serverUrl}/search?name=${stateCode}`;
+            // Perform the fetch request with the search URL
+            fetch(searchUrl)
+                .then((response) => response.json())
+                .then((data) => setMembers(data))
+                .catch((error) => console.error(error));
+    }
+
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        if (selectedOption === null) {
+            return;
+        }
+        console.log(selectedOption.value);
+        if(selectedOption.value === 'State'){
+            handleStateCodeSearch();
+            
+        }
+        else if(selectedOption.value === 'Company'){
+            handleCompanySearch();
+        }
+        else if(selectedOption.value === 'Individual'){
+            handleIndividualSearch();
+        }
+    }
+        
     
     return (
         <div className='container-fluid grid pt-4'>
@@ -43,7 +100,8 @@ function Home(props) {
             <div className='row'>
                 <div className='col-3'></div>
                 <form class="d-flex col-6" role="search">
-                    <input class="form-control me-2" type="search" id="state_code" name="state_code" placeholder="Enter a state code" aria-label="Search" onChange={(e) => setStateCode(e.target.value)} />
+                    <Select options={options} onChange={handleChange}/>
+                    <input class="form-control me-2" type="search" id="state_code" name="state_code" placeholder="Search here" aria-label="Search" onChange={(e) => setStateCode(e.target.value)} />
                     <button class="btn btn-outline-success" type="submit" onClick={handleSearchSubmit}>Search</button>
                 </form>
                 <div className='col-3'></div>
