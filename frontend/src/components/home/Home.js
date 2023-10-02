@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css";
 import CardGrid from "../cardGrid/CardGrid";
-import { Navigate, useNavigate } from "react-router-dom";
-
 import Select from "react-select";
-import MemberCard from "../memberCard/MemberCard";
-import LegislatorDetails from "../legislatorDetails/LegislatorDetails";
-import { Route } from "react-router-dom";
 
 function Home(props) {
   const [members, setMembers] = useState([]);
@@ -67,11 +62,9 @@ function Home(props) {
 
   //store the current option selected when onChange is triggered
   const [selectedOption, setSelectedOption] = useState(null);
-
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
   };
-
   const options = [
     { value: "State", label: "State" },
     { value: "Company", label: "Company" },
