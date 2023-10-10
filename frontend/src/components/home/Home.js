@@ -87,7 +87,6 @@ function Home(props) {
     let person_obj = {
       name: name,
       city: city,
-
       top_donors: [],
     };
 
@@ -102,7 +101,6 @@ function Home(props) {
             person_obj.top_donors.push([
               result.committee.name,
               result.contribution_receipt_amount,
-              result.contribution_receipt_date,
             ]);
           });
           setDonationData(person_obj);
