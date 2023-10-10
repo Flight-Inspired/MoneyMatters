@@ -19,64 +19,6 @@ def search_legislators_by_state(state_code):
 
     return search_results
 
-def name_to_bioguide_id(name):
-    conn = sqlite3.connect("legislators.db")
-    c = conn.cursor()
-
-    name = f'%{name}%'
-    c.execute('''
-        SELECT current_legislators.bioguide_id
-        FROM current_legislators
-        WHERE current_legislators.lastname LIKE ? OR current_legislators.firstlast LIKE ?
-    ''', (name, name))
-    search_results = c.fetchall()
-
-    conn.close()
-
-    return search_results
-
-def name_search(name):
-    conn = sqlite3.connect("legislators.db")
-    c = conn.cursor()
-
-    name = f'%{name}%'
-    c.execute('''
-        SELECT current_legislators.*, candidate_summary.chamber, us_representatives.depiction
-        FROM current_legislators
-        LEFT JOIN us_representatives ON current_legislators.bioguide_id = us_representatives.bioguide_id
-        LEFT JOIN candidate_summary ON current_legislators.cid = candidate_summary.cid
-        WHERE current_legislators.lastname LIKE ? OR current_legislators.firstlast LIKE ?
-    ''', (name, name))
-    search_results = c.fetchall()
-
-    conn.close()
-
-    return search_results
-
-
-def search_by_company(name):
-    conn = sqlite3.connect("legislators.db")
-    c = conn.cursor()
-
-    name = f'%{name}%'
-    c.execute('''
-        SELECT current_legislators.*, candidate_summary.chamber, us_representatives.depiction
-        FROM candidate_contributions
-        LEFT JOIN current_legislators ON candidate_contributions.cid = current_legislators.cid
-        LEFT JOIN us_representatives ON current_legislators.bioguide_id = us_representatives.bioguide_id
-        LEFT JOIN candidate_summary ON current_legislators.cid = candidate_summary.cid
-        WHERE candidate_contributions.org_name LIKE ? OR candidate_contributions.org_name LIKE ?
-    ''', (name, name))
-
-    search_results = c.fetchall()
-
-    print(search_results)
-
-    conn.close()
-
-    return search_results
-    
-
 
 def get_top_donors(bioguide_id):
     try:
