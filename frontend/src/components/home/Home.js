@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import "./Home.css";
 import CardGrid from "../cardGrid/CardGrid";
+import DonoGrid from "../cardGrid/donoGrid";
 import Select from "react-select";
+import { indvResults } from "../indvResults/indvResults";
+const dotenv = require('dotenv');
+dotenv.config();
 
 function Home(props) {
   const [members, setMembers] = useState([]);
   const [stateCode, setStateCode] = useState("");
+  const [error, setError] = useState(false);
+  const [donationData, setDonationData] = useState([]);
 
   const usStateCodes = [
     "AL",
@@ -68,10 +74,44 @@ function Home(props) {
   const options = [
     { value: "State", label: "State" },
     { value: "Company", label: "Company" },
+    { value: "Legislator", label: "Legislator" },
     { value: "Individual", label: "Individual" },
   ];
 
   const lowerCaseStateCodes = usStateCodes.map((code) => code.toLowerCase());
+
+  const handleCitizenSearch = () => {
+    const params = stateCode;
+    //separate the name and city, first by a comma, then a space. The name will be the first element in the array, the city will be the second
+    const name = params.split(", ")[0];
+    const city = params.split(", ")[1];
+
+    let person_obj = {
+      name: name,
+      city: city,
+      top_donors: [],
+    };
+
+    const url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&contributor_city=${city}&is_individual=true&contributor_type=individual&per_page=10&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.FEC_API_KEY}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.results.length === 0) {
+          setError(true);
+        } else {
+          data.results.map((result) => {
+            person_obj.top_donors.push([
+              result.committee.name,
+              result.contribution_receipt_amount,
+            ]);
+          });
+          setDonationData(person_obj);
+        }
+      })
+      .catch((error) => {
+        setError(true);
+      });
+  };
 
   const handleStateCodeSearch = () => {
     if (lowerCaseStateCodes.includes(stateCode.toLowerCase())) {
@@ -110,13 +150,17 @@ function Home(props) {
     if (selectedOption === null) {
       return;
     }
+    setMembers([]);
+    setDonationData([]);
     console.log(selectedOption.value);
     if (selectedOption.value === "State") {
       handleStateCodeSearch();
     } else if (selectedOption.value === "Company") {
       handleCompanySearch();
-    } else if (selectedOption.value === "Individual") {
+    } else if (selectedOption.value === "Legislator") {
       handleIndividualSearch();
+    } else if (selectedOption.value === "Individual") {
+      handleCitizenSearch();
     }
   };
 
@@ -162,7 +206,11 @@ function Home(props) {
       <div className="row">
         <div className="col-12 text-center">
           {members.length === 0 ? (
-            <p>Loading...</p>
+            donationData.length === 0 ? (
+              <p>No results found</p>
+            ) : (
+              <DonoGrid members={donationData} />
+            )
           ) : (
             <CardGrid members={members} />
           )}
