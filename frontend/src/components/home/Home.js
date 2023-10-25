@@ -158,7 +158,6 @@ function Home(props) {
 
       <div className="row">
         <div className="col-1"></div>
-        <h2 className="col-11">Search Results:</h2>
       </div>
       <div className="row">
         <div className="col-12 text-center">
