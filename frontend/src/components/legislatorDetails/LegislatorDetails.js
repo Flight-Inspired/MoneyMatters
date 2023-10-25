@@ -81,8 +81,6 @@ function TableauVisual(props){
     const url = "https://public.tableau.com/shared/PQRFDDC5N?:display_count=n&:origin=viz_share_link";
     const { bioguideId } = useParams();
 
-    console.log("HER!", typeof bioguideId);
-
     const filters = {
         "Bioguide Id": bioguideId
     };
