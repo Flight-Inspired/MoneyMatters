@@ -4,8 +4,6 @@ import CardGrid from "../cardGrid/CardGrid";
 import DonoGrid from "../cardGrid/donoGrid";
 import Select from "react-select";
 import { indvResults } from "../indvResults/indvResults";
-const dotenv = require('dotenv');
-dotenv.config();
 
 function Home(props) {
   const [members, setMembers] = useState([]);
@@ -92,7 +90,7 @@ function Home(props) {
       top_donors: [],
     };
 
-    const url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&contributor_city=${city}&is_individual=true&contributor_type=individual&per_page=10&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.FEC_API_KEY}`;
+    const url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&contributor_city=${city}&is_individual=true&contributor_type=individual&per_page=10&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.REACT_APP_FEC_API_KEY}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -152,7 +150,6 @@ function Home(props) {
     }
     setMembers([]);
     setDonationData([]);
-    console.log(selectedOption.value);
     if (selectedOption.value === "State") {
       handleStateCodeSearch();
     } else if (selectedOption.value === "Company") {
