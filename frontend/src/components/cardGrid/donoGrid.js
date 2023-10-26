@@ -3,7 +3,6 @@ import MemberCard from "../memberCard/MemberCard";
 import IndvResults from "../indvResults/indvResults";
 
 const donoGrid = ({ members }) => {
-  console.log(members);
   return (
     <div className="grid">
       <div className="row m-4">
