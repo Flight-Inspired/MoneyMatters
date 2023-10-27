@@ -43,29 +43,24 @@ function LegislatorDetails(props) {
                             <p><strong>{legistlator_details[0]}</strong> - {legistlator_details[3]} - {legistlator_details[4]}</p>
                         </center>
                     </div>
-                </div>
-                <div class="content_center">
-                    <TableauVisual />
-                </div>
-                
+                </div>        
                 <div class="content_right">
                     <div class="donors_container card">
                         <h2>Top 10 Donors - 2022 Cycle:</h2>
                         <ul>
-                            
                             {top_donors.length === 0? "Error": top_donors.map((donor, index) => (
                                 <li>
                                     <span class="donor_number">{++index}.</span>
                                     <span class="donor_name">{donor[0]}</span>
                                     <span class="donor_amount">{donor[1]}</span>
                                 </li>
-                                
                             ))}
-                                    
                         </ul>
                     </div>
                 </div>
-                
+            </div>
+            <div class="content_tableau">
+                <TableauVisual />
             </div>
             <div class="disclaimer_notice_container">
                 {/* Donation notice */}

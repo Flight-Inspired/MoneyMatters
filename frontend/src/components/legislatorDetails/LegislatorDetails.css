@@ -21,9 +21,14 @@
 
     width: 100%;
 }
-.content_center {
-    padding-left: 50px;
-    padding-right: 50px;
+@media screen and (max-width: 830px) {
+    .content {
+        flex-direction: column;
+    }
+    .donors_container {
+        width: 80%;
+        margin: 40px auto 40px auto;
+    }
 }
 .content_left {
     display: flex;
@@ -40,6 +45,7 @@
 }
 
 .donors_container {
+    box-sizing: border-box;
     padding: 20px;
 }
 /* Styling for top donors list */
