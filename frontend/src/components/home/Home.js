@@ -164,7 +164,7 @@ function Home(props) {
   return (
     <div className="container-fluid grid pt-4">
       <div className="row">
-        <h1 className="col-12 text-center">MoneyMatters</h1>
+        <h1 className="col-12 text-center">ElectSum</h1>
       </div>
       <div className="row">
         <div className="col-3"></div>
@@ -174,27 +174,36 @@ function Home(props) {
         <div className="col-3"></div>
       </div>
       <div className="row">
-        <div className="col-3"></div>
-        <form class="d-flex col-6" role="search">
-          <Select options={options} onChange={handleChange} />
-          <input
-            class="form-control me-2"
-            type="search"
-            id="state_code"
-            name="state_code"
-            placeholder="Search here"
-            aria-label="Search"
-            onChange={(e) => setStateCode(e.target.value)}
+
+        <form class="d-flex col-6 form_container" role="search">  
+          <div class="form_container_upper">
+            <input
+              class="form-control me-2 search_bar"
+              type="search"
+              id="state_code"
+              name="state_code"
+              placeholder="Search here"
+              aria-label="Search"
+              onChange={(e) => setStateCode(e.target.value)}
+            />
+
+            <button
+              class="btn btn-outline-success search_btn"
+              type="submit"
+              onClick={handleSearchSubmit}
+            >
+              Search
+            </button>
+          </div>
+
+          <Select
+            defaultValue={{ label: "State", value: 0 }}
+            options={options} 
+            onChange={handleChange} 
+            className="search_dropdown"
           />
-          <button
-            class="btn btn-outline-success"
-            type="submit"
-            onClick={handleSearchSubmit}
-          >
-            Search
-          </button>
         </form>
-        <div className="col-3"></div>
+
       </div>
 
       <div className="row">
