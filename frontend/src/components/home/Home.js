@@ -146,6 +146,7 @@ function Home(props) {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     if (selectedOption === null) {
+      handleStateCodeSearch(); // defaults to state code
       return;
     }
     setMembers([]);
@@ -161,6 +162,20 @@ function Home(props) {
     }
   };
 
+  const getPlaceholderValue = () => {
+    if (selectedOption === null) return "Enter two letter state code (i.e. co, wy, nj, ma)"; // defaults to
+
+    if (selectedOption.value === 'State') {
+      return "Enter two letter state code... (i.e. co, wy, nj, ma)";
+    } else if (selectedOption.value === 'Company') {
+      return "Enter company name...";
+    } else if (selectedOption.value === 'Legislator') {
+      return "Enter legislator name..."
+    } else {
+      return "Search...";
+    }
+  };
+
   return (
     <div className="container-fluid grid pt-4">
       <div className="row">
@@ -168,7 +183,7 @@ function Home(props) {
       </div>
       <div className="row">
         <div className="col-3"></div>
-        <p className="col-6">
+        <p className="col-6" style={ { textAlign: 'center' } }>
           Enter two letter State Codes in search: (i.e. co, wy, nj, ma)
         </p>
         <div className="col-3"></div>
@@ -182,7 +197,7 @@ function Home(props) {
               type="search"
               id="state_code"
               name="state_code"
-              placeholder="Search here"
+              placeholder={getPlaceholderValue()}
               aria-label="Search"
               onChange={(e) => setStateCode(e.target.value)}
             />
