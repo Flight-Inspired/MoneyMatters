@@ -44,3 +44,23 @@ body {
     margin-top: 20px; 
 }
 
+.search_dropdown {
+    width: 200px;
+    margin: 20px auto 20px auto;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 600px;
+    min-width: 300px;
+}
+.form_container_upper {
+    display: flex;
+}
+
+.search_btn {
+    margin-left: 10px;
+}
