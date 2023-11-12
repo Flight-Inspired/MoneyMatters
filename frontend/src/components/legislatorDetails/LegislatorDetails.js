@@ -73,11 +73,11 @@ function LegislatorDetails(props) {
 }
 
 function TableauVisual(props){ 
-    const url = "https://public.tableau.com/shared/PQRFDDC5N?:display_count=n&:origin=viz_share_link";
+    const url = "https://public.tableau.com/views/ElectSum-HouseSenateCampaignFinance2023-2024_16998142563560/HS23-24DASH?:language=en-US&:display_count=n&:origin=viz_share_link";
     const { bioguideId } = useParams();
 
     const filters = {
-        "Bioguide Id": bioguideId
+        "Bioguide Id (Currentlegislators Idextractv3.Txt)": bioguideId
     };
 
     const options = {
