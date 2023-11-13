@@ -10,6 +10,7 @@ function Home(props) {
   const [stateCode, setStateCode] = useState("");
   const [error, setError] = useState(false);
   const [donationData, setDonationData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const usStateCodes = [
     "AL",
@@ -97,10 +98,12 @@ function Home(props) {
         if (data.results.length === 0) {
           setError(true);
         } else {
+          console.log(data.results);
           data.results.map((result) => {
             person_obj.top_donors.push([
               result.committee.name,
               result.contribution_receipt_amount,
+              result.contribution_receipt_date,
             ]);
           });
           setDonationData(person_obj);
@@ -169,7 +172,10 @@ function Home(props) {
       <div className="row">
         <div className="col-3"></div>
         <p className="col-6">
-          Enter two letter State Codes in search: (i.e. co, wy, nj, ma)
+          Enter two letter State Codes in search: (i.e. co, wy, nj, ma) or
+          select another option from the dropdown menu. For individual search,
+          enter name and city separated by a comma and a space (i.e. John Smith,
+          Denver)
         </p>
         <div className="col-3"></div>
       </div>
