@@ -10,6 +10,7 @@ function Home(props) {
   const [stateCode, setStateCode] = useState("");
   const [error, setError] = useState(false);
   const [donationData, setDonationData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const usStateCodes = [
     "AL",
@@ -97,10 +98,12 @@ function Home(props) {
         if (data.results.length === 0) {
           setError(true);
         } else {
+          console.log(data.results);
           data.results.map((result) => {
             person_obj.top_donors.push([
               result.committee.name,
               result.contribution_receipt_amount,
+              result.contribution_receipt_date,
             ]);
           });
           setDonationData(person_obj);
