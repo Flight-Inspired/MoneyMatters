@@ -149,6 +149,7 @@ function Home(props) {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     if (selectedOption === null) {
+      handleStateCodeSearch(); // defaults to state code
       return;
     }
     setMembers([]);
@@ -164,43 +165,63 @@ function Home(props) {
     }
   };
 
+  const getPlaceholderValue = () => {
+    if (selectedOption === null) return "Enter two letter state code (i.e. co, wy, nj, ma)"; // defaults to
+
+    if (selectedOption.value === 'State') {
+      return "Enter two letter state code... (i.e. co, wy, nj, ma)";
+    } else if (selectedOption.value === 'Company') {
+      return "Enter company name...";
+    } else if (selectedOption.value === 'Legislator') {
+      return "Enter legislator name..."
+    } else {
+      return "Search...";
+    }
+  };
+
   return (
     <div className="container-fluid grid pt-4">
       <div className="row">
-        <h1 className="col-12 text-center">MoneyMatters</h1>
+        <h1 className="col-12 text-center">ElectSum</h1>
       </div>
       <div className="row">
         <div className="col-3"></div>
-        <p className="col-6">
-          Enter two letter State Codes in search: (i.e. co, wy, nj, ma) or
-          select another option from the dropdown menu. For individual search,
-          enter name and city separated by a comma and a space (i.e. John Smith,
-          Denver)
+        <p className="col-6" style={ { textAlign: 'center' } }>
+          Enter two letter State Codes in search: (i.e. co, wy, nj, ma)
         </p>
         <div className="col-3"></div>
       </div>
       <div className="row">
-        <div className="col-3"></div>
-        <form class="d-flex col-6" role="search">
-          <Select options={options} onChange={handleChange} />
-          <input
-            class="form-control me-2"
-            type="search"
-            id="state_code"
-            name="state_code"
-            placeholder="Search here"
-            aria-label="Search"
-            onChange={(e) => setStateCode(e.target.value)}
+
+        <form class="d-flex col-6 form_container" role="search">  
+          <div class="form_container_upper">
+            <input
+              class="form-control me-2 search_bar"
+              type="search"
+              id="state_code"
+              name="state_code"
+              placeholder={getPlaceholderValue()}
+              aria-label="Search"
+              onChange={(e) => setStateCode(e.target.value)}
+            />
+
+            <button
+              class="btn btn-outline-success search_btn"
+              type="submit"
+              onClick={handleSearchSubmit}
+            >
+              Search
+            </button>
+          </div>
+
+          <Select
+            defaultValue={{ label: "State", value: 0 }}
+            options={options} 
+            onChange={handleChange} 
+            className="search_dropdown"
           />
-          <button
-            class="btn btn-outline-success"
-            type="submit"
-            onClick={handleSearchSubmit}
-          >
-            Search
-          </button>
         </form>
-        <div className="col-3"></div>
+
       </div>
 
       <div className="row">
