@@ -11,6 +11,10 @@
 /build
 
 # misc
+Azure login.txt
+AzureACIcheckStatus.txt
+DockerAzuerUpdate.txt
+dockernarrative.txt
 .DS_Store
 .env.local
 .env.development.local

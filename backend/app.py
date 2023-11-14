@@ -1,12 +1,10 @@
 #app.py
 import json
-from congress_api import get_all_members, insert_members_into_database
-from database_setup import setup_database
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-from opensecrets_api import insert_legislators_for_all_states
-from search import search_legislators_by_state, get_top_donors, name_to_bioguide_id, name_search, search_by_company 
-import os, sqlite3
+
+from search import search_legislators_by_state, get_top_donors, name_search, search_by_company 
+
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000"]}})
