@@ -18,7 +18,13 @@ function NavBar(props) {
                             <Link className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} aria-current={location.pathname === '/map' ? 'page' : null} to="/">Home</Link>
                         </li>
                         <li className='nav-item'>
-                            <Link className={`nav-link ${location.pathname === '/map' ? 'active' : ''}`}  aria-current={location.pathname === '/map' ? 'page' : null}to="/map">Map</Link>
+                            <Link className={`nav-link ${location.pathname === '/all-candidates' ? 'active' : ''}`}  aria-current={location.pathname === '/map' ? 'page' : null}to="/all-candidates">All Candidates</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link className={`nav-link ${location.pathname === '/congress' ? 'active' : ''}`}  aria-current={location.pathname === '/congress' ? 'page' : null}to="/congress">Congress</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link className={`nav-link ${location.pathname === '/presidential' ? 'active' : ''}`}  aria-current={location.pathname === '/map' ? 'page' : null}to="/presidential">Presidential</Link>
                         </li>
                     </ul>
                 </div>
