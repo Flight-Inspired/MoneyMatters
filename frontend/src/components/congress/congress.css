@@ -1,0 +1,6 @@
+
+.map_viz > div {
+    max-width: 1500px;
+    margin: 100px auto 0px auto;
+    box-shadow: 0px 0px 5px black;
+}
