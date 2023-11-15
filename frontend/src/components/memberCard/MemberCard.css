@@ -1,0 +1,74 @@
+/* Style for legislator containers */
+.legislator-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    height: 400px; 
+    display: inline-block;
+    box-shadow: 2px 2px 5px #888888;
+    cursor: pointer;
+    position: relative; 
+}
+
+/* Style for legislator information at the top */
+.legislator-chamber {
+    text-align: center; 
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Style for legislator information at the bottom */
+.legislator-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center; 
+    font-size: 18px; 
+}
+
+/* Style for legislator images */
+.legislator-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%;
+    max-width: 100%;
+    transform: translateY(-15%); 
+}
+
+/* Style for legislator images */
+.legislator-image-container img {
+    max-width: 100%;
+    max-height: 250px; 
+}
+
+/* Display search results in containers */
+.legislator-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Additional styling for desktop screens */
+@media screen and (min-width: 769px) {
+    .legislator-container {
+        margin-bottom: 0;
+    }
+}
+
+/* Styling for small screens */
+@media screen and (max-width: 768px) {
+    .legislator-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}
+
+.cover-img {
+    object-fit: cover;
+    width: 100%;
+    height: 20rem;
+  }

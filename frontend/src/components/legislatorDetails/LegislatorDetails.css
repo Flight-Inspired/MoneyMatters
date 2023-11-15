@@ -1,0 +1,116 @@
+.page_container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100vw;
+}
+.page_title {
+    margin: 0;
+    padding: 50px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.content {
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+}
+@media screen and (max-width: 830px) {
+    .content {
+        flex-direction: column;
+    }
+    .donors_container {
+        width: 80%;
+        margin: 40px auto 40px auto;
+    }
+}
+.content_left {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.l_image {
+    display: flex;
+
+    max-width: 250px;
+    min-width: 200px;
+    margin: 0 auto;
+}
+
+.donors_container {
+    box-sizing: border-box;
+    padding: 20px;
+}
+/* Styling for top donors list */
+.donors_container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for top donors list items */
+.donors_container li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* Styling for donor number */
+.donor_number {
+    width: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Styling for donor name */
+.donor_name {
+    flex: 1;
+    text-align: left;
+    margin-left: 12px;
+}
+
+/* Styling for donor amount */
+.donor_amount {
+    font-weight: bold;
+    text-align: left;
+    margin-left: 10px;
+    width: 60px;
+    display: inline-block;
+}
+
+
+.disclaimer_notice_container {
+    margin-top: 100px;
+}
+
+/* Adjusted styling for donation notice */
+.donation-notice {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Adjusted styling for additional notice */
+.additional-notice {
+    text-align: center;
+    margin-top: 0px;
+    font-size: 14px;
+    color: #777;
+}
+
+.card {
+    box-shadow: 0px 0px 5px black;
+}
+
+
+
+
