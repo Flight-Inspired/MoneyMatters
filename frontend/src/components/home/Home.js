@@ -98,7 +98,6 @@ function Home(props) {
         if (data.results.length === 0) {
           setError(true);
         } else {
-          console.log(data.results);
           data.results.map((result) => {
             person_obj.top_donors.push([
               result.committee.name,
@@ -166,14 +165,14 @@ function Home(props) {
   };
 
   const getPlaceholderValue = () => {
-    if (selectedOption === null) return "Enter two letter state code (i.e. co, wy, nj, ma)"; // defaults to
+    if (selectedOption === null) return "i.e. co, wy, nj"; // defaults to
 
     if (selectedOption.value === 'State') {
-      return "Enter two letter state code... (i.e. co, wy, nj, ma)";
+      return "i.e. co, wy, nj";
     } else if (selectedOption.value === 'Company') {
-      return "Enter company name...";
+      return "Company name...";
     } else if (selectedOption.value === 'Legislator') {
-      return "Enter legislator name..."
+      return "Legislator name..."
     } else {
       return "Search...";
     }
