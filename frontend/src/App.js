@@ -1,6 +1,9 @@
 import "./App.css";
 import Home from "./components/home/Home";
 import Map from "./components/map/Map";
+import AllCandidates from "./components/allCandidates/AllCandidates";
+import Congress from "./components/congress/Congress";
+import Presidential from "./components/presidential/Presidential";
 import NavBar from "./components/navbar/NavBar";
 import LegislatorDetails from "./components/legislatorDetails/LegislatorDetails";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import the functions you need from the SDKs you need
@@ -37,7 +40,9 @@ function App() {
           path="/legislator/:bioguideId"
           element={<LegislatorDetails serverUrl={server_url} />}
         />
-        <Route path="/map" element={<Map />} />
+        <Route path="/all-candidates" element={<AllCandidates />} />
+        <Route path="/congress" element={<Congress />} />
+        <Route path="/presidential" element={<Presidential />} />
       </Routes>
     </Router>
   );

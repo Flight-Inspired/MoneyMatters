@@ -4,10 +4,12 @@ import CardGrid from "../cardGrid/CardGrid";
 import DonoGrid from "../cardGrid/donoGrid";
 import Select from "react-select";
 import { indvResults } from "../indvResults/indvResults";
+import Tableau from "tableau-react";
 
 function Home(props) {
   const [members, setMembers] = useState([]);
   const [stateCode, setStateCode] = useState("");
+  const [searchedState, setSearchedState] = useState(false);
   const [error, setError] = useState(false);
   const [donationData, setDonationData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -98,7 +100,6 @@ function Home(props) {
         if (data.results.length === 0) {
           setError(true);
         } else {
-          console.log(data.results);
           data.results.map((result) => {
             person_obj.top_donors.push([
               result.committee.name,
@@ -117,6 +118,8 @@ function Home(props) {
   const handleStateCodeSearch = () => {
     if (lowerCaseStateCodes.includes(stateCode.toLowerCase())) {
       const searchUrl = `${props.serverUrl}/search?state_code=${stateCode}`;
+      
+      setSearchedState(true);
       // Perform the fetch request with the search URL
       fetch(searchUrl)
         .then((response) => response.json())
@@ -166,14 +169,14 @@ function Home(props) {
   };
 
   const getPlaceholderValue = () => {
-    if (selectedOption === null) return "Enter two letter state code (i.e. co, wy, nj, ma)"; // defaults to
+    if (selectedOption === null) return "i.e. co, wy, nj"; // defaults to
 
     if (selectedOption.value === 'State') {
-      return "Enter two letter state code... (i.e. co, wy, nj, ma)";
+      return "i.e. co, wy, nj";
     } else if (selectedOption.value === 'Company') {
-      return "Enter company name...";
+      return "Company name...";
     } else if (selectedOption.value === 'Legislator') {
-      return "Enter legislator name..."
+      return "Legislator name..."
     } else {
       return "Search...";
     }
@@ -202,7 +205,10 @@ function Home(props) {
               name="state_code"
               placeholder={getPlaceholderValue()}
               aria-label="Search"
-              onChange={(e) => setStateCode(e.target.value)}
+              onChange={(e) => {
+                setStateCode(e.target.value); 
+                setSearchedState(false);
+              }}
             />
 
             <button
@@ -240,8 +246,37 @@ function Home(props) {
           )}
         </div>
       </div>
+      <div class="heatmap_container">
+        <HeatMap searchedState={searchedState} setSearchedState={setSearchedState} state={stateCode} />
+      </div>
     </div>
   );
 }
+
+function HeatMap(props) {
+  const url = "https://public.tableau.com/views/Dash-2_16999301904860/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link";
+
+  const filters = {
+      "Cand Office St": props.state.toUpperCase()
+  };
+
+  const options = {
+      hideTabs: true,
+      hideToolbar: true
+  };
+  
+  if (props.searchedState) {
+    return (
+      <Tableau
+        url={url}
+        options={options}
+        filters={filters}
+      />
+   );
+  } else {
+    return null;
+  }
+}
+
 
 export default Home;
