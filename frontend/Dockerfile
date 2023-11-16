@@ -1,4 +1,3 @@
-User
 #\frontend
 # Use a base image with Node.js
 FROM node:16
