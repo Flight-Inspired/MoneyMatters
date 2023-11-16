@@ -23,4 +23,4 @@ RUN yarn build
 #--ignore="CI"
 
 # Command to serve the React app (using serve as an example)
-CMD ["npx", "serve", "-s", "build"]
+CMD ["npx", "serve", "-s", "build", "-l", "80"]
