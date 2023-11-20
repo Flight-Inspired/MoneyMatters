@@ -85,15 +85,14 @@ function Home(props) {
     const params = stateCode;
     //separate the name and city, first by a comma, then a space. The name will be the first element in the array, the city will be the second
     const name = params.split(", ")[0];
-    const city = params.split(", ")[1];
+
 
     let person_obj = {
       name: name,
-      city: city,
       top_donors: [],
     };
 
-    const url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&contributor_city=${city}&is_individual=true&contributor_type=individual&per_page=10&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.REACT_APP_FEC_API_KEY}`;
+    const url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&is_individual=true&contributor_type=individual&per_page=10&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.REACT_APP_FEC_API_KEY}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
@@ -105,7 +104,10 @@ function Home(props) {
               result.committee.name,
               result.contribution_receipt_amount,
               result.contribution_receipt_date,
+              result.contributor_city,
+              result.contributor_state,
             ]);
+
           });
           setDonationData(person_obj);
         }
@@ -129,6 +131,7 @@ function Home(props) {
       // Handle invalid state code
       const searchUrl = `${props.serverUrl}/search?name=${stateCode}`;
     }
+
   };
 
   const handleCompanySearch = () => {
@@ -138,6 +141,7 @@ function Home(props) {
       .then((response) => response.json())
       .then((data) => setMembers(data))
       .catch((error) => console.error(error));
+
   };
 
   const handleIndividualSearch = () => {
@@ -147,16 +151,18 @@ function Home(props) {
       .then((response) => response.json())
       .then((data) => setMembers(data))
       .catch((error) => console.error(error));
+      
+  
   };
 
-  const handleSearchSubmit = (event) => {
+    const handleSearchSubmit = (event) => {
     event.preventDefault();
+    setDonationData([]);
+    setMembers([]);
     if (selectedOption === null) {
       handleStateCodeSearch(); // defaults to state code
       return;
     }
-    setMembers([]);
-    setDonationData([]);
     if (selectedOption.value === "State") {
       handleStateCodeSearch();
     } else if (selectedOption.value === "Company") {
@@ -165,7 +171,7 @@ function Home(props) {
       handleIndividualSearch();
     } else if (selectedOption.value === "Individual") {
       handleCitizenSearch();
-    }
+      }
   };
 
   const getPlaceholderValue = () => {
@@ -177,6 +183,8 @@ function Home(props) {
       return "Company name...";
     } else if (selectedOption.value === 'Legislator') {
       return "Legislator name..."
+    } else if (selectedOption.value == 'Individual'){
+      return "i.e John Smith"
     } else {
       return "Search...";
     }
@@ -235,15 +243,22 @@ function Home(props) {
       </div>
       <div className="row">
         <div className="col-12 text-center">
-          {members.length === 0 ? (
-            donationData.length === 0 ? (
-              <p>No results found</p>
+
+          {
+            loading ? (
+              <p>Loading...</p>
             ) : (
-              <DonoGrid members={donationData} />
+              members.length === 0 ? (
+                donationData.length === 0 ? (
+                  <p>No results found</p>
+                ) : (
+                  <DonoGrid members={donationData} />
+                )
+              ) : (
+                <CardGrid members={members} />
+              )
             )
-          ) : (
-            <CardGrid members={members} />
-          )}
+          }
         </div>
       </div>
       <div class="heatmap_container">
