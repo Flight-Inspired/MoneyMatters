@@ -197,10 +197,10 @@ function Home(props) {
         </div>
         <div className="row">
 
-            <form class="d-flex col-6 form_container" role="search">  
-            <div class="form_container_upper">
+            <form className="d-flex col-6 form_container" role="search">  
+            <div className="form_container_upper">
                 <input
-                class="form-control me-2 search_bar"
+                className="form-control me-2 search_bar"
                 type="search"
                 id="state_code"
                 name="state_code"
@@ -213,7 +213,7 @@ function Home(props) {
                 />
 
                 <button
-                class="btn btn-outline-success search_btn"
+                className="btn btn-outline-success search_btn"
                 type="submit"
                 onClick={handleSearchSubmit}
                 >
@@ -247,7 +247,7 @@ function Home(props) {
             )}
             </div>
         </div>
-        <div class="heatmap_container">
+        <div className="heatmap_container">
             <HeatMap searchedState={searchedState} setSearchedState={setSearchedState} state={stateCode} />
         </div>
         </div>
