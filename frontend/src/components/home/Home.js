@@ -81,40 +81,59 @@ function Home(props) {
 
   const lowerCaseStateCodes = usStateCodes.map((code) => code.toLowerCase());
 
-  const handleCitizenSearch = () => {
+  const handleCitizenSearch = async () => {
     const params = stateCode;
-    //separate the name and city, first by a comma, then a space. The name will be the first element in the array, the city will be the second
     const name = params.split(", ")[0];
-
-
+  
     let person_obj = {
       name: name,
       top_donors: [],
     };
-
-    const url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&is_individual=true&contributor_type=individual&per_page=10&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.REACT_APP_FEC_API_KEY}`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.results.length === 0) {
-          setError(true);
-        } else {
-          data.results.map((result) => {
-            person_obj.top_donors.push([
-              result.committee.name,
-              result.contribution_receipt_amount,
-              result.contribution_receipt_date,
-              result.contributor_city,
-              result.contributor_state,
-            ]);
-
-          });
-          setDonationData(person_obj);
-        }
-      })
-      .catch((error) => {
+  
+    let last_index = null;
+    let last_contribution_receipt_date = null;
+    let total_count = null;
+    let per_page = 100;
+    let page = 1;
+  
+    while (true) {
+      let url = `https://api.open.fec.gov/v1/schedules/schedule_a/?contributor_name=${name}&is_individual=true&contributor_type=individual&per_page=${per_page}&sort=-contribution_receipt_amount&sort_hide_null=true&sort_null_only=false&api_key=${process.env.REACT_APP_FEC_API_KEY}`;
+  
+      if (last_index && last_contribution_receipt_date) {
+        url += `&last_index=${last_index}&last_contribution_receipt_amount=${Number(last_contribution_receipt_date)}`;
+        console.log(url);
+      }
+  
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      if (data.results.length === 0) {
         setError(true);
-      });
+        break;
+      } else {
+        data.results.map((result) => {
+          person_obj.top_donors.push([
+            result.committee.name,
+            result.contribution_receipt_amount,
+            result.contribution_receipt_date,
+            result.contributor_city,
+            result.contributor_state,
+          ]);
+  
+            last_index = data.pagination.last_indexes.last_index;
+            last_contribution_receipt_date = data.pagination.last_indexes.last_contribution_receipt_amount;
+          
+        });
+  
+        setDonationData(person_obj);
+      }
+  
+      total_count = data.pagination.total_count;
+      if (page * per_page >= total_count) {
+        break;
+      }
+      page++;
+    }
   };
 
   const handleStateCodeSearch = () => {
