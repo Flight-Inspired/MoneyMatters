@@ -26,6 +26,9 @@ function NavBar(props) {
                         <li className='nav-item'>
                             <Link className={`nav-link ${location.pathname === '/presidential' ? 'active' : ''}`}  aria-current={location.pathname === '/map' ? 'page' : null}to="/presidential">Presidential</Link>
                         </li>
+                        <li className='nav-item'>
+                            <Link className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}  aria-current={location.pathname === '/about' ? 'page' : null}to="/about">About Us</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

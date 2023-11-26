@@ -52,7 +52,7 @@ function LegislatorDetails(props) {
                                 <li>
                                     <span class="donor_number">{++index}.</span>
                                     <span class="donor_name">{donor[0]}</span>
-                                    <span class="donor_amount">{donor[1]}</span>
+                                    <span class="donor_amount" style={{width: 'auto'}}>{donor[1]}</span>
                                 </li>
                             ))}
                         </ul>
