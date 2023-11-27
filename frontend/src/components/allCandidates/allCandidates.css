@@ -1,0 +1,16 @@
+.viz_container {
+    cursor: pointer;
+}
+.viz_container:hover {
+    text-decoration: underline;
+}
+
+.viz_container_header {
+    display: flex;
+}
+.viz_container_header > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
+}
