@@ -10,7 +10,7 @@ function Congress(props) {
         {
             name: "Congress Spending Heatmap",
             thumbnail: CongressSpendingHeatmapThumb,
-            url: "https://public.tableau.com/views/President-Dash/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
+            url: "https://public.tableau.com/shared/53NWSCCZQ?:display_count=n&:origin=viz_share_link",
             startOpen: true
         }
     ];
