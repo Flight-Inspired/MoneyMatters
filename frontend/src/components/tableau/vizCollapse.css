@@ -1,6 +1,6 @@
 .viz_container {
     cursor: pointer;
-    max-width: 750px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 .viz_container:hover {

@@ -9,7 +9,7 @@ function Presidential(props) {
         {
             name: "Presidential Donations",
             thumbnail: presidentialDash,
-            url: "https://public.tableau.com/views/President-Dash/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
+            url: "https://public.tableau.com/views/President-Dash-v3/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
             startOpen: true
         }
     ];
