@@ -1,0 +1,32 @@
+.viz_container {
+    cursor: pointer;
+    max-width: 750px;
+    margin: 0 auto;
+}
+.viz_container:hover {
+    background-color: rgba(142, 142, 142, 0.14)
+}
+
+.viz_container_header {
+    display: flex;
+}
+.viz_container_header > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
+}
+.viz_container_header img {
+    width: 150px;
+    height: 100px;
+    margin: 10px 10px 10px 50px;
+}
+.viz_container_header h3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex_placeholder {
+    flex-grow: 1;
+}

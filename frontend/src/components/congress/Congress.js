@@ -1,14 +1,28 @@
 import React from 'react';
-import Map from '../map/Map';
+import VizCollapse from '../tableau/VizCollapse';
 import "./congress.css";
 
+// thumbnails
+import CongressSpendingHeatmapThumb from "../../assets/thumbnails/house_senate_spending_heatmap.png";
+
 function Congress(props) {
+    const visuals = [
+        {
+            name: "Congress Spending Heatmap",
+            thumbnail: CongressSpendingHeatmapThumb,
+            url: "https://public.tableau.com/views/President-Dash/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
+            startOpen: true
+        }
+    ];
+
     return (
         <div className="container-fluid m-auto mt-3" style={{ 'maxWidth': 1200 + 'px' }}>
-            <h3 className='h3'>Top Spending by State:</h3>
-            <Map />
+            <div className='container-md mx-auto mt-5'>
+                {visuals.map((viz) => (
+                    <VizCollapse viz={viz} />
+                ))}
+            </div>
         </div>
-        
     );
 }
 
