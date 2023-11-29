@@ -1,6 +1,7 @@
 .viz_container {
     cursor: pointer;
     max-width: 750px;
+    margin: 0 auto;
 }
 .viz_container:hover {
     background-color: rgba(142, 142, 142, 0.14)
