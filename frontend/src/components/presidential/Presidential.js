@@ -2,7 +2,7 @@ import React from 'react';
 import VizCollapse from '../tableau/VizCollapse';
 
 // thumbnails
-import presidentialDash from '../../assets/thumbnails/presidential_redux.png';
+import presidentialDash from '../../assets/thumbnails/Presidential_redux.png';
 
 function Presidential(props) {
     const visuals = [
