@@ -2,14 +2,14 @@ import React from 'react';
 import VizCollapse from '../tableau/VizCollapse';
 
 // thumbnails
-import presidentialDash from '../../assets/thumbnails/presidential_dash.png';
+import presidentialDash from '../../assets/thumbnails/presidential_redux.png';
 
 function Presidential(props) {
     const visuals = [
         {
             name: "Presidential Donations",
             thumbnail: presidentialDash,
-            url: "https://public.tableau.com/views/President-Dash-v3/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
+            url: "https://public.tableau.com/views/ElectSum-PresidentialCampaignFinance2023-2024/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link",
             startOpen: true
         }
     ];
